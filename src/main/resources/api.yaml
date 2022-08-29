@@ -1,0 +1,75 @@
+openapi: "3.0.2"
+info:
+  title: Calculator Service
+  description: "Calculator Service on Spring Boot and Java"
+  contact:
+    name: Alioth Fuentes
+    email: aafuentes@atsistemas.com
+  version: "1.0"
+servers:
+  - url: http://localhost:8080
+paths:
+  /add:
+    get:
+      summary: Add two values
+      description: Add two values [links](https://en.wikipedia.org/wiki/Addition)
+      operationId: add
+      parameters:
+        - $ref: '#/components/parameters/firstTermParam'
+        - $ref: '#/components/parameters/secondTermParam'
+      responses:
+        '200':
+          description: Addition result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        '400':
+          description: Bad request.
+        '500':
+          description: Unexpected error.
+  /subtract:
+    get:
+      summary: Subtract two values
+      description: Subtract two values [links](https://en.wikipedia.org/wiki/Subtraction)
+      operationId: subtract
+      parameters:
+        - $ref: '#/components/parameters/firstTermParam'
+        - $ref: '#/components/parameters/secondTermParam'
+      responses:
+        '200':
+          description: Subtract result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        '400':
+          description: Bad request.
+        '500':
+          description: Unexpected error.
+components:
+  parameters:
+    firstTermParam:
+      in: query
+      name: firstTerm
+      required: true
+      schema:
+        type: number
+      description: The first term of an operation
+      example: 20
+    secondTermParam:
+      in: query
+      name: secondTerm
+      required: true
+      schema:
+        type: number
+      description: The second term of an operation
+      example: 10
+  schemas:
+    OperationResult:
+      type: object
+      properties:
+        result:
+          type: number
+          example: 30.00
+          description: The result of operation
